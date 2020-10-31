@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 
 function Register() {
@@ -12,9 +12,11 @@ function Register() {
     const passwordConfirmRef = useRef();
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const history = useHistory();
 
     async function registerUser(e) {
         e.preventDefault();
+
         if (passwordRef.current.value !== passwordConfirmRef.current.value) {
             return setError("Passwords do not match");
         }
@@ -30,13 +32,17 @@ function Register() {
                 role: roleRef.current.value,
             })
             .then((res) => {
-                console.log(res);
+                redirectToLogin();
             })
             .catch((err) => {
                 setError(err.response.data.message);
             });
         setLoading(false);
     }
+
+    const redirectToLogin = () => {
+        history.push("/login");
+    };
 
     return (
         <>

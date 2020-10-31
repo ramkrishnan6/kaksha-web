@@ -1,13 +1,15 @@
 import React, { useRef, useState } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 function Login() {
     const emailRef = useRef();
     const passwordRef = useRef();
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const history = useHistory();
 
     async function loginUser(e) {
         e.preventDefault();
@@ -22,13 +24,20 @@ function Login() {
             })
             .then((res) => {
                 localStorage.setItem("auth-token", res.data.token);
-                console.log(res.data.token);
+                redirectToDashboard();
             })
             .catch((err) => {
                 setError(err.response.data.message);
             });
         setLoading(false);
     }
+
+    const redirectToDashboard = () => {
+        history.push("/dashboard");
+    };
+
+    if (localStorage.getItem("auth-token"))
+        return <Redirect to="/dashboard"></Redirect>;
 
     return (
         <>
