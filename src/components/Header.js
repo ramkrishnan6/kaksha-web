@@ -12,7 +12,7 @@ function Header() {
 
     return (
         <Navbar bg="dark" variant="dark" className="mb-5">
-            <Navbar.Brand href="#home">Ram's Kaksha</Navbar.Brand>
+            <Navbar.Brand href="/">Ram's Kaksha</Navbar.Brand>
             <Nav className="mr-auto">
                 <Nav.Link href="/">Home</Nav.Link>
             </Nav>

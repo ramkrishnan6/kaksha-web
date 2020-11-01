@@ -79,9 +79,13 @@ function Register() {
                             />
                         </Form.Group>
 
-                        <Form.Group id="role">
+                        <Form.Group id="first_name">
                             <Form.Label>Role</Form.Label>
-                            <Form.Control type="text" ref={roleRef} required />
+
+                            <Form.Control as="select" ref={roleRef} required>
+                                <option value="student">Student</option>
+                                <option value="teacher">Teacher</option>
+                            </Form.Control>
                         </Form.Group>
 
                         <Form.Group id="password">
