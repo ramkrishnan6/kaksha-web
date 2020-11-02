@@ -1,18 +1,17 @@
 import React from "react";
 import { Redirect, Route } from "react-router-dom";
 
-function PrivateRoute({ children, ...rest }) {
+function PrivateRoute({ component: Component, ...rest }) {
     return (
         <Route
             {...rest}
-            render={({ location }) =>
+            render={(props) =>
                 localStorage.getItem("auth-token") ? (
-                    children
+                    <Component {...props} />
                 ) : (
                     <Redirect
                         to={{
                             pathname: "/login",
-                            state: { from: location },
                         }}
                     />
                 )
