@@ -6,14 +6,23 @@ import PrivateRoute from "./PrivateRoute";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
+import Room from "./components/Room";
 
 function App() {
     return (
         <div>
             <Router>
-                <PrivateRoute exact path="/dashboard">
-                    <Dashboard />
-                </PrivateRoute>
+                <PrivateRoute
+                    exact
+                    path="/dashboard"
+                    component={Dashboard}
+                ></PrivateRoute>
+
+                <PrivateRoute
+                    exact
+                    path="/room/:id"
+                    component={Room}
+                ></PrivateRoute>
 
                 <Container
                     className="d-flex align-items-center justify-content-center"
