@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
-import axios from "axios";
 import TeacherControls from "./TeacherControls";
 import ClassEndModal from "./ClassEndModal";
 import { useHistory } from "react-router-dom";
@@ -34,45 +33,42 @@ const Room = ({ match }) => {
     const roomId = match.params.id;
 
     const requestHeader = {
-        headers: {
-            "auth-token": localStorage.getItem("auth-token"),
-        },
+        "Content-Type": "application/json",
+        "auth-token": localStorage.getItem("auth-token"),
     };
 
     const fetchClassStatus = async () => {
-        const classStatus = await fetch(
-            `http://127.0.0.1:8000/class/${roomId}`,
-            {
-                mode: "cors",
-                headers: {
-                    "Content-Type": "application/json",
-                    "auth-token": localStorage.getItem("auth-token"),
-                },
-            }
-        );
-
-        const status = await classStatus.json();
-        updateClassStatus(status.data.is_active);
+        await fetch(`http://127.0.0.1:8000/class/${roomId}`, {
+            mode: "cors",
+            headers: requestHeader,
+        })
+            .then(async (res) => {
+                const status = await res.json();
+                updateClassStatus(status.data.is_active);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
 
     const fetchUser = async () => {
-        const userDetails = await fetch(
-            `http://127.0.0.1:8000/user/dashboard`,
-            {
-                mode: "cors",
-                headers: {
-                    "Content-Type": "application/json",
-                    "auth-token": localStorage.getItem("auth-token"),
-                },
-            }
-        );
-        const user = await userDetails.json();
-        const value = user.data.role === "teacher" ? true : false;
-        updateIsTeacher(value);
+        await fetch(`http://127.0.0.1:8000/user/dashboard`, {
+            mode: "cors",
+            headers: requestHeader,
+        })
+            .then(async (res) => {
+                const user = await res.json();
+                const value = user.data.role === "teacher" ? true : false;
+                updateIsTeacher(value);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
 
+    fetchUser();
+
     useEffect(() => {
-        fetchUser();
         fetchClassStatus();
 
         if (isClassActive) {
@@ -112,19 +108,14 @@ const Room = ({ match }) => {
         });
     };
 
-    const startClass = () => {
-        axios
-            .post(
-                "class",
-                {
-                    number: roomId,
-                    is_active: true,
-                },
-                requestHeader
-            )
-            .then((res) => {
-                updateClassStatus(true);
-            })
+    const startClass = async () => {
+        await fetch(`http://127.0.0.1:8000/class`, {
+            mode: "cors",
+            method: "POST",
+            headers: requestHeader,
+            body: JSON.stringify({ number: roomId, is_active: true }),
+        })
+            .then(updateClassStatus(true))
             .catch((err) => {
                 console.log(err);
             });
@@ -135,12 +126,12 @@ const Room = ({ match }) => {
             mode: "cors",
             method: "PUT",
             body: JSON.stringify({ is_active: false }),
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token": localStorage.getItem("auth-token"),
-            },
-        });
-        updateClassEnd(true);
+            headers: requestHeader,
+        })
+            .then(updateClassEnd(true))
+            .catch((err) => {
+                console.log(err);
+            });
     };
 
     return (
