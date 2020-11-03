@@ -3,6 +3,7 @@ import { Container } from "react-bootstrap";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 
+import Home from "./components/Home";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
@@ -36,6 +37,7 @@ function App() {
                                 component={Register}
                             />
                             <Route exact path="/login" component={Login} />
+                            <Route exact path="/" component={Home} />
                         </Switch>
                     </div>
                 </Container>
