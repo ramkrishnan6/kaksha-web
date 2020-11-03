@@ -7,12 +7,13 @@ import { API_URL } from "../constants/api";
 import Header from "./Header";
 
 const Room = ({ match }) => {
+    const [socketConnection, setSocketConnection] = useState();
+
     const [firstName, setFirstName] = useState();
     const [onlineStudents, setOnlineStudents] = useState([]);
     const [onlineTeachers, setOnlineTeachers] = useState([]);
     const [isClassActive, setIsClassActive] = useState(false);
     const [isTeacher, setIsTeacher] = useState(false);
-    const [isClassEnd, setIsClassEnd] = useState(false);
     const [modalShow, setModalShow] = useState(false);
     const history = useHistory();
 
@@ -31,10 +32,6 @@ const Room = ({ match }) => {
 
     const updateIsTeacher = (value) => {
         setIsTeacher(value);
-    };
-
-    const updateClassEnd = (value) => {
-        setIsClassEnd(value);
     };
 
     const roomId = match.params.id;
@@ -82,7 +79,7 @@ const Room = ({ match }) => {
         if (isClassActive) {
             startConnection();
         }
-    }, [isClassActive, isClassEnd]);
+    }, [isClassActive]);
 
     const startConnection = () => {
         const socket = io(API_URL, {
@@ -91,27 +88,21 @@ const Room = ({ match }) => {
             },
         });
 
+        setSocketConnection(socket);
+
         socket.emit("join-room", roomId);
         socket.on("user-connected", (onlineStudents, onlineTeachers) => {
-            // console.log("New user joined", newUserId);
             updateOnlineUsers(onlineStudents, onlineTeachers);
         });
 
         socket.on("user-disconnected", (onlineStudents, onlineTeachers) => {
-            // console.log("User left", oldUserId);
             updateOnlineUsers(onlineStudents, onlineTeachers);
         });
 
-        if (isClassEnd) {
-            socket.emit("class-end", roomId);
-            updateClassStatus(false);
-            updateClassEnd(false);
-        }
-
-        socket.on("leave-room", (onlineStudents, onlineTeachers) => {
-            updateOnlineUsers(onlineStudents, onlineTeachers);
-
+        socket.on("leave-room", () => {
             socket.disconnect();
+            updateClassStatus(false);
+
             setModalShow(true);
         });
     };
@@ -141,7 +132,7 @@ const Room = ({ match }) => {
             body: JSON.stringify({ is_active: false, ended_at: Date.now() }),
             headers: requestHeader,
         })
-            .then(updateClassEnd(true))
+            .then(socketConnection.emit("class-end", roomId))
             .catch((err) => {
                 console.log(err);
             });
@@ -150,6 +141,7 @@ const Room = ({ match }) => {
     return (
         <div>
             <Header userName={firstName} />
+
             <h1>Classroom {roomId}</h1>
 
             <ClassEndModal
