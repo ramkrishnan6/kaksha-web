@@ -4,8 +4,10 @@ import TeacherControls from "./TeacherControls";
 import ClassEndModal from "./ClassEndModal";
 import { useHistory } from "react-router-dom";
 import { API_URL } from "../constants/api";
+import Header from "./Header";
 
 const Room = ({ match }) => {
+    const [firstName, setFirstName] = useState();
     const [onlineStudents, setOnlineStudents] = useState([]);
     const [onlineTeachers, setOnlineTeachers] = useState([]);
     const [isClassActive, setIsClassActive] = useState(false);
@@ -13,6 +15,10 @@ const Room = ({ match }) => {
     const [isClassEnd, setIsClassEnd] = useState(false);
     const [modalShow, setModalShow] = useState(false);
     const history = useHistory();
+
+    const updateName = (name) => {
+        setFirstName(name);
+    };
 
     const updateOnlineUsers = (onlineStudents, onlineTeachers) => {
         setOnlineStudents(onlineStudents);
@@ -61,6 +67,7 @@ const Room = ({ match }) => {
                 const user = await res.json();
                 const value = user.data.role === "teacher" ? true : false;
                 updateIsTeacher(value);
+                updateName(user.data.first_name);
             })
             .catch((err) => {
                 console.log(err);
@@ -114,7 +121,12 @@ const Room = ({ match }) => {
             mode: "cors",
             method: "POST",
             headers: requestHeader,
-            body: JSON.stringify({ number: roomId, is_active: true }),
+            body: JSON.stringify({
+                number: roomId,
+                is_active: true,
+                started_at: Date.now(),
+                ended_at: null,
+            }),
         })
             .then(updateClassStatus(true))
             .catch((err) => {
@@ -126,7 +138,7 @@ const Room = ({ match }) => {
         await fetch(`${API_URL}/class/${roomId}`, {
             mode: "cors",
             method: "PUT",
-            body: JSON.stringify({ is_active: false }),
+            body: JSON.stringify({ is_active: false, ended_at: Date.now() }),
             headers: requestHeader,
         })
             .then(updateClassEnd(true))
@@ -137,6 +149,7 @@ const Room = ({ match }) => {
 
     return (
         <div>
+            <Header userName={firstName} />
             <h1>Classroom {roomId}</h1>
 
             <ClassEndModal
