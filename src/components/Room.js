@@ -3,6 +3,7 @@ import io from "socket.io-client";
 import TeacherControls from "./TeacherControls";
 import ClassEndModal from "./ClassEndModal";
 import { useHistory } from "react-router-dom";
+import { API_URL } from "../constants/api";
 
 const Room = ({ match }) => {
     const [onlineStudents, setOnlineStudents] = useState([]);
@@ -38,7 +39,7 @@ const Room = ({ match }) => {
     };
 
     const fetchClassStatus = async () => {
-        await fetch(`http://127.0.0.1:8000/class/${roomId}`, {
+        await fetch(`${API_URL}/class/${roomId}`, {
             mode: "cors",
             headers: requestHeader,
         })
@@ -52,7 +53,7 @@ const Room = ({ match }) => {
     };
 
     const fetchUser = async () => {
-        await fetch(`http://127.0.0.1:8000/user/dashboard`, {
+        await fetch(`${API_URL}/user/dashboard`, {
             mode: "cors",
             headers: requestHeader,
         })
@@ -77,7 +78,7 @@ const Room = ({ match }) => {
     }, [isClassActive, isClassEnd]);
 
     const startConnection = () => {
-        const socket = io("http://127.0.0.1:8000", {
+        const socket = io(API_URL, {
             query: {
                 token: localStorage.getItem("auth-token"),
             },
@@ -109,7 +110,7 @@ const Room = ({ match }) => {
     };
 
     const startClass = async () => {
-        await fetch(`http://127.0.0.1:8000/class`, {
+        await fetch(`${API_URL}/class`, {
             mode: "cors",
             method: "POST",
             headers: requestHeader,
@@ -122,7 +123,7 @@ const Room = ({ match }) => {
     };
 
     const endClass = async () => {
-        await fetch(`http://127.0.0.1:8000/class/${roomId}`, {
+        await fetch(`${API_URL}/class/${roomId}`, {
             mode: "cors",
             method: "PUT",
             body: JSON.stringify({ is_active: false }),

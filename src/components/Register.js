@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
+import { API_URL } from "../constants/api";
 
 function Register() {
     const firstNameRef = useRef();
@@ -24,7 +25,7 @@ function Register() {
         setLoading(true);
 
         axios
-            .post("user/register", {
+            .post(`${API_URL}/user/register`, {
                 first_name: firstNameRef.current.value,
                 last_name: lastNameRef.current.value,
                 email: emailRef.current.value,
@@ -111,7 +112,7 @@ function Register() {
                             className="w-100"
                             type="submit"
                         >
-                            Sign Up
+                            Register
                         </Button>
                     </Form>
                 </Card.Body>

@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import Header from "./Header";
+import { API_URL } from "../constants/api";
 
 function Dashboard() {
     const [firstName, setFirstName] = useState();
@@ -18,7 +19,7 @@ function Dashboard() {
     };
 
     axios
-        .get("user/dashboard", requestHeader)
+        .get(`${API_URL}/user/dashboard`, requestHeader)
         .then((res) =>
             updateName(res.data.data.first_name, res.data.data.last_name)
         )

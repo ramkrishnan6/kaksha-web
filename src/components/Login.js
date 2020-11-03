@@ -3,6 +3,7 @@ import { Form, Button, Card, Alert } from "react-bootstrap";
 import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import { API_URL } from "../constants/api";
 
 function Login() {
     const emailRef = useRef();
@@ -18,7 +19,7 @@ function Login() {
         setLoading(true);
 
         axios
-            .post("user/login", {
+            .post(`${API_URL}/user/login`, {
                 email: emailRef.current.value,
                 password: passwordRef.current.value,
             })
@@ -43,7 +44,7 @@ function Login() {
         <>
             <Card>
                 <Card.Body>
-                    <h2 className="text-center mb-4">Log In</h2>
+                    <h2 className="text-center mb-4">Login</h2>
                     {error && <Alert variant="danger">{error}</Alert>}
 
                     <Form onSubmit={loginUser}>
@@ -70,7 +71,7 @@ function Login() {
                             className="w-100"
                             type="submit"
                         >
-                            Log In
+                            Login
                         </Button>
                     </Form>
                 </Card.Body>
