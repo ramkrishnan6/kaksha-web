@@ -1,8 +1,8 @@
 import React from "react";
-import { Button, Navbar, Nav } from "react-bootstrap";
+import { Button, Navbar, Nav, NavItem } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 
-function Header() {
+function Header({ userName }) {
     const history = useHistory();
 
     const logout = () => {
@@ -15,6 +15,7 @@ function Header() {
             <Navbar.Brand href="/">Ram's Kaksha</Navbar.Brand>
             <Nav className="mr-auto">
                 <Nav.Link href="/">Home</Nav.Link>
+                <Nav.Link className="ml-auto">{userName}</Nav.Link>
             </Nav>
             <Button variant="danger" onClick={logout}>
                 Logout

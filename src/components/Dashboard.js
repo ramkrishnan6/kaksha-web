@@ -27,7 +27,7 @@ function Dashboard() {
 
     return (
         <>
-            <Header />
+            <Header userName={firstName} />
             <h2>
                 {firstName} {lastName}'s Dashboard
             </h2>
