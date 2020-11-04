@@ -1,12 +1,15 @@
 import React from "react";
-import { Button, Navbar, Nav, NavItem } from "react-bootstrap";
+import { Button, Navbar, Nav } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 
-function Header({ userName }) {
+function Header({ userName, leaveClass }) {
     const history = useHistory();
 
     const logout = () => {
         localStorage.clear("auth-token");
+        if (leaveClass) {
+            leaveClass.disconnect();
+        }
         history.push("/login");
     };
 
