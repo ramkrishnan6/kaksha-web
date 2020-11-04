@@ -10,6 +10,7 @@ function Report({ userLogs }) {
                         <th>Last Name</th>
                         <th>Action</th>
                         <th>Role</th>
+                        <th>Time</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -19,6 +20,7 @@ function Report({ userLogs }) {
                             <td>{userLog.user.last_name}</td>
                             <td>{userLog.type}</td>
                             <td>{userLog.user.role}</td>
+                            <td>{new Date(userLog.time).toLocaleString()}</td>
                         </tr>
                     ))}
                 </tbody>
