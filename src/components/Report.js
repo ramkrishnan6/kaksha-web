@@ -42,20 +42,19 @@ function Report() {
                 {classes.map((class1, i) => (
                     <Accordion defaultActiveKey="1">
                         <Card>
-                            <Card.Header>
-                                <Accordion.Toggle
-                                    as={Button}
-                                    variant="link"
-                                    eventKey="0"
-                                >
-                                    {class1.number}
-                                </Accordion.Toggle>
-                            </Card.Header>
-                            <Accordion.Collapse eventKey="0">
-                                <Card.Body>
-                                    <ClassLog key={i} classLogs={class1} />
-                                </Card.Body>
-                            </Accordion.Collapse>
+                            <Accordion.Toggle
+                                as={Button}
+                                variant="a"
+                                eventKey="0"
+                            >
+                                {class1.number}
+                                <Card.Header></Card.Header>
+                                <Accordion.Collapse eventKey="0">
+                                    <Card.Body>
+                                        <ClassLog key={i} classLogs={class1} />
+                                    </Card.Body>
+                                </Accordion.Collapse>
+                            </Accordion.Toggle>
                         </Card>
                     </Accordion>
                 ))}
