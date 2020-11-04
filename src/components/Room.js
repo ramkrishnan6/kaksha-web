@@ -5,6 +5,11 @@ import ClassEndModal from "./ClassEndModal";
 import { useHistory } from "react-router-dom";
 import { API_URL } from "../constants/api";
 import Header from "./Header";
+import LeaveClassButton from "./LeaveClassButton";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "../App.css";
+toast.configure();
 
 const Room = ({ match }) => {
     const [socketConnection, setSocketConnection] = useState();
@@ -32,6 +37,14 @@ const Room = ({ match }) => {
 
     const updateIsTeacher = (value) => {
         setIsTeacher(value);
+    };
+
+    const userJoinedNotification = (userName) => {
+        toast.success(`${userName} joined the class`, { autoClose: 2000 });
+    };
+
+    const userLeftNotification = (userName) => {
+        toast.error(`${userName} left the class`, { autoClose: 2000 });
     };
 
     const roomId = match.params.id;
@@ -91,13 +104,21 @@ const Room = ({ match }) => {
         setSocketConnection(socket);
 
         socket.emit("join-room", roomId);
-        socket.on("user-connected", (onlineStudents, onlineTeachers) => {
-            updateOnlineUsers(onlineStudents, onlineTeachers);
-        });
+        socket.on(
+            "user-connected",
+            (onlineStudents, onlineTeachers, newUserName) => {
+                updateOnlineUsers(onlineStudents, onlineTeachers);
+                userJoinedNotification(newUserName);
+            }
+        );
 
-        socket.on("user-disconnected", (onlineStudents, onlineTeachers) => {
-            updateOnlineUsers(onlineStudents, onlineTeachers);
-        });
+        socket.on(
+            "user-disconnected",
+            (onlineStudents, onlineTeachers, leftUserName) => {
+                updateOnlineUsers(onlineStudents, onlineTeachers);
+                userLeftNotification(leftUserName);
+            }
+        );
 
         socket.on("leave-room", () => {
             socket.disconnect();
