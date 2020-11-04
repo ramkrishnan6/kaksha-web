@@ -8,6 +8,7 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import Room from "./components/Room";
+import Report from "./components/Report";
 
 function App() {
     return (
@@ -23,6 +24,12 @@ function App() {
                     exact
                     path="/room/:id"
                     component={Room}
+                ></PrivateRoute>
+
+                <PrivateRoute
+                    exact
+                    path="/report"
+                    component={Report}
                 ></PrivateRoute>
 
                 <Container
