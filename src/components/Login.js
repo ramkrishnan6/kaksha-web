@@ -1,9 +1,10 @@
 import React, { useRef, useState } from "react";
-import { Form, Button, Card, Alert } from "react-bootstrap";
+import { Form, Button, Card, Alert, Image, Row } from "react-bootstrap";
 import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { API_URL } from "../constants/api";
+import logo from "../assets/logo.svg";
 
 function Login() {
     const emailRef = useRef();
@@ -44,6 +45,15 @@ function Login() {
         <>
             <Card>
                 <Card.Body>
+                    <Row className="justify-content-center">
+                        <Image
+                            src={logo}
+                            height={100}
+                            width={150}
+                            className="mx-auto"
+                        />
+                    </Row>
+
                     <h2 className="text-center mb-4">Login</h2>
                     {error && <Alert variant="danger">{error}</Alert>}
 

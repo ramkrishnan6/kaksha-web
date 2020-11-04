@@ -1,8 +1,9 @@
 import React, { useRef, useState } from "react";
-import { Form, Button, Card, Alert } from "react-bootstrap";
+import { Form, Button, Card, Alert, Row, Image } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../constants/api";
+import logo from "../assets/logo.svg";
 
 function Register() {
     const firstNameRef = useRef();
@@ -47,8 +48,17 @@ function Register() {
 
     return (
         <>
-            <Card>
+            <Card className="mt-5">
                 <Card.Body>
+                    <Row className="justify-content-center">
+                        <Image
+                            src={logo}
+                            height={100}
+                            width={150}
+                            className="mx-auto"
+                        />
+                    </Row>
+
                     <h2 className="text-center mb-4">Register</h2>
                     {error && <Alert variant="danger">{error}</Alert>}
 
