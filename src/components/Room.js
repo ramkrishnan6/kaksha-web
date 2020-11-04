@@ -164,7 +164,7 @@ const Room = ({ match }) => {
             <Header userName={firstName} leaveClass={socketConnection} />
 
             <div className="class-info">
-                <h1>Classroom {roomId}</h1>
+                <h1>📚 Classroom - {roomId}</h1>
                 <div className="controls">
                     {isTeacher ? (
                         <TeacherControls
@@ -195,7 +195,7 @@ const Room = ({ match }) => {
 
                 <div className="users">
                     <h2 className="ml-3 mt-2">
-                        <b>Teachers</b>
+                        <b> 👨‍🏫 Teachers</b>
                     </h2>
                     <ul>
                         {onlineTeachers.map((user) => {
@@ -206,7 +206,7 @@ const Room = ({ match }) => {
 
                 <div className="users">
                     <h2 className="ml-3  mt-2">
-                        <b>Students</b>
+                        <b>🧑‍🎓 Students</b>
                     </h2>
                     <ul>
                         {onlineStudents.map((user) => {
