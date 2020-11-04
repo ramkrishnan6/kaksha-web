@@ -7,7 +7,7 @@ import Home from "./components/Home";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
-import Room from "./components/Room";
+import ClassRoom from "./components/ClassRoom";
 import Report from "./components/Report";
 
 function App() {
@@ -22,8 +22,8 @@ function App() {
 
                 <PrivateRoute
                     exact
-                    path="/room/:id"
-                    component={Room}
+                    path="/class/:id"
+                    component={ClassRoom}
                 ></PrivateRoute>
 
                 <PrivateRoute

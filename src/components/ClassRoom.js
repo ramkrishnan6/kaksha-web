@@ -8,7 +8,7 @@ import Header from "./Header";
 import LeaveClassButton from "./LeaveClassButton";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "../css/Room.css";
+import "../css/ClassRoom.css";
 toast.configure();
 
 const Room = ({ match }) => {
