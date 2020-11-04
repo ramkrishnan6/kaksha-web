@@ -1,0 +1,30 @@
+.room {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.users {
+    flex: 1;
+    border: 2px solid black;
+    border-radius: 10px;
+    max-width: 400px;
+    min-height: 500px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.class-info {
+    display: flex;
+}
+
+.controls {
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+    float: right;
+    margin-left: auto;
+    margin-right: 30px;
+}

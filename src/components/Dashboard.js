@@ -20,9 +20,9 @@ function Dashboard() {
 
     axios
         .get(`${API_URL}/user/dashboard`, requestHeader)
-        .then((res) =>
-            updateName(res.data.data.first_name, res.data.data.last_name)
-        )
+        .then((res) => {
+            updateName(res.data.data.first_name, res.data.data.last_name);
+        })
         .catch((err) => console.log(err));
 
     return (

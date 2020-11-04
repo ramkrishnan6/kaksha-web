@@ -8,7 +8,7 @@ import Header from "./Header";
 import LeaveClassButton from "./LeaveClassButton";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "../App.css";
+import "../css/Room.css";
 toast.configure();
 
 const Room = ({ match }) => {
@@ -161,39 +161,60 @@ const Room = ({ match }) => {
 
     return (
         <div>
-            <Header userName={firstName} />
+            <Header userName={firstName} leaveClass={socketConnection} />
 
-            <h1>Classroom {roomId}</h1>
+            <div className="class-info">
+                <h1>Classroom {roomId}</h1>
+                <div className="controls">
+                    {isTeacher ? (
+                        <TeacherControls
+                            isClassActive={isClassActive}
+                            startClass={startClass}
+                            endClass={endClass}
+                        />
+                    ) : (
+                        ""
+                    )}
 
-            <ClassEndModal
-                show={modalShow}
-                onHide={() => {
-                    setModalShow(false);
-                    history.push("/dashboard");
-                }}
-            />
+                    {isClassActive ? (
+                        <LeaveClassButton leaveClass={socketConnection} />
+                    ) : (
+                        ""
+                    )}
+                </div>
+            </div>
 
-            {isTeacher ? (
-                <TeacherControls
-                    isClassActive={isClassActive}
-                    startClass={startClass}
-                    endClass={endClass}
+            <div className="room my-5">
+                <ClassEndModal
+                    show={modalShow}
+                    onHide={() => {
+                        setModalShow(false);
+                        history.push("/dashboard");
+                    }}
                 />
-            ) : (
-                ""
-            )}
-            <h1>Teachers</h1>
-            <ul>
-                {onlineTeachers.map((user) => {
-                    return <li key={user}>{user}</li>;
-                })}
-            </ul>
-            <h1>Students</h1>
-            <ul>
-                {onlineStudents.map((user) => {
-                    return <li key={user}>{user}</li>;
-                })}
-            </ul>
+
+                <div className="users">
+                    <h2 className="ml-3 mt-2">
+                        <b>Teachers</b>
+                    </h2>
+                    <ul>
+                        {onlineTeachers.map((user) => {
+                            return <li key={user}>{user}</li>;
+                        })}
+                    </ul>
+                </div>
+
+                <div className="users">
+                    <h2 className="ml-3  mt-2">
+                        <b>Students</b>
+                    </h2>
+                    <ul>
+                        {onlineStudents.map((user) => {
+                            return <li key={user}>{user}</li>;
+                        })}
+                    </ul>
+                </div>
+            </div>
         </div>
     );
 };
