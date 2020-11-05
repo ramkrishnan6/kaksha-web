@@ -35,7 +35,7 @@ function Report() {
 
     return (
         <>
-            <Header userName="" />
+            <Header userName="" isLoggedIn={true} />
             <h1>Report</h1>
 
             <div>

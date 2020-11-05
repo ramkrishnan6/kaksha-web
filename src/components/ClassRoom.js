@@ -161,7 +161,11 @@ const Room = ({ match }) => {
 
     return (
         <div>
-            <Header userName={firstName} leaveClass={socketConnection} />
+            <Header
+                userName={firstName}
+                leaveClass={socketConnection}
+                isLoggedIn={true}
+            />
 
             <div className="class-info">
                 <h1>📚 Classroom - {roomId}</h1>

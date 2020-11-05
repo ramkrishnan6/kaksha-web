@@ -3,7 +3,7 @@ import { Button, Navbar, Nav } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import logo from "../assets/logo.svg";
 
-function Header({ userName, leaveClass }) {
+function Header({ userName, leaveClass, isLoggedIn }) {
     const history = useHistory();
 
     const logout = () => {
@@ -25,11 +25,17 @@ function Header({ userName, leaveClass }) {
             </Navbar.Brand>
             <Nav className="mr-auto">
                 <Nav.Link href="/">Home</Nav.Link>
-                <Nav.Link className="ml-auto">{userName}</Nav.Link>
+                <Nav.Link href="/dashboard">Dashboard</Nav.Link>
+                <Nav.Link href="/report">Report</Nav.Link>
+                <Nav.Link className="ml-auto">Welcome {userName}</Nav.Link>
             </Nav>
-            <Button variant="danger" onClick={logout}>
-                Logout
-            </Button>
+            {isLoggedIn ? (
+                <Button variant="danger" onClick={logout}>
+                    Logout
+                </Button>
+            ) : (
+                ""
+            )}
         </Navbar>
     );
 }

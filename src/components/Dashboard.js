@@ -34,7 +34,7 @@ function Dashboard() {
 
     return (
         <>
-            <Header userName={firstName} />
+            <Header userName={firstName} isLoggedIn={true} />
             <h2>
                 {firstName} {lastName}'s Dashboard ({role})
             </h2>
