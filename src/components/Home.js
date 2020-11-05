@@ -27,7 +27,7 @@ function Home() {
                             </a>
                             <a
                                 className="btn btn-dark start start-two ml-3"
-                                href="/login"
+                                href="/register"
                             >
                                 Register
                             </a>
