@@ -17,7 +17,11 @@ function Header({ userName, leaveClass }) {
     return (
         <Navbar bg="dark" variant="dark" className="mb-5">
             <Navbar.Brand href="/">
-                <img src={logo} style={{ width: 120, marginTop: -10 }} />
+                <img
+                    src={logo}
+                    style={{ width: 120, marginTop: -10 }}
+                    alt="Kaksha"
+                />
             </Navbar.Brand>
             <Nav className="mr-auto">
                 <Nav.Link href="/">Home</Nav.Link>
