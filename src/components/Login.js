@@ -1,10 +1,19 @@
 import React, { useRef, useState } from "react";
-import { Form, Button, Card, Alert, Image, Row } from "react-bootstrap";
+import {
+    Form,
+    Button,
+    Card,
+    Alert,
+    Image,
+    Row,
+    Container,
+} from "react-bootstrap";
 import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { API_URL } from "../constants/api";
 import logo from "../assets/logo.svg";
+import Header from "./Header";
 
 function Login() {
     const emailRef = useRef();
@@ -43,52 +52,58 @@ function Login() {
 
     return (
         <>
-            <Card>
-                <Card.Body>
-                    <Row className="justify-content-center">
-                        <Image
-                            src={logo}
-                            height={100}
-                            width={150}
-                            className="mx-auto"
-                        />
-                    </Row>
+            <Header />
 
-                    <h2 className="text-center mb-4">Login</h2>
-                    {error && <Alert variant="danger">{error}</Alert>}
+            <Container className="d-flex align-items-center justify-content-center">
+                <div className="w-100" style={{ maxWidth: "400px" }}>
+                    <Card>
+                        <Card.Body>
+                            <Row className="justify-content-center">
+                                <Image
+                                    src={logo}
+                                    height={100}
+                                    width={150}
+                                    className="mx-auto"
+                                />
+                            </Row>
 
-                    <Form onSubmit={loginUser}>
-                        <Form.Group id="email">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control
-                                type="email"
-                                ref={emailRef}
-                                required
-                            />
-                        </Form.Group>
+                            <h2 className="text-center mb-4">Login</h2>
+                            {error && <Alert variant="danger">{error}</Alert>}
 
-                        <Form.Group id="password">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control
-                                type="password"
-                                ref={passwordRef}
-                                required
-                            />
-                        </Form.Group>
+                            <Form onSubmit={loginUser}>
+                                <Form.Group id="email">
+                                    <Form.Label>Email</Form.Label>
+                                    <Form.Control
+                                        type="email"
+                                        ref={emailRef}
+                                        required
+                                    />
+                                </Form.Group>
 
-                        <Button
-                            disabled={loading}
-                            className="w-100"
-                            type="submit"
-                        >
-                            Login
-                        </Button>
-                    </Form>
-                </Card.Body>
-            </Card>
-            <div className="w-100 text-center mt-2">
-                Need an account? <Link to="/register">Register</Link>
-            </div>
+                                <Form.Group id="password">
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control
+                                        type="password"
+                                        ref={passwordRef}
+                                        required
+                                    />
+                                </Form.Group>
+
+                                <Button
+                                    disabled={loading}
+                                    className="w-100"
+                                    type="submit"
+                                >
+                                    Login
+                                </Button>
+                            </Form>
+                        </Card.Body>
+                    </Card>
+                    <div className="w-100 text-center mt-2">
+                        Need an account? <Link to="/register">Register</Link>
+                    </div>
+                </div>
+            </Container>
         </>
     );
 }
