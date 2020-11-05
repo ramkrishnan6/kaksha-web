@@ -1,9 +1,18 @@
 import React, { useRef, useState } from "react";
-import { Form, Button, Card, Alert, Row, Image } from "react-bootstrap";
+import {
+    Form,
+    Button,
+    Card,
+    Alert,
+    Row,
+    Image,
+    Container,
+} from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../constants/api";
 import logo from "../assets/logo.svg";
+import Header from "./Header";
 
 function Register() {
     const firstNameRef = useRef();
@@ -48,88 +57,100 @@ function Register() {
 
     return (
         <>
-            <Card className="mt-5">
-                <Card.Body>
-                    <Row className="justify-content-center">
-                        <Image
-                            src={logo}
-                            height={100}
-                            width={150}
-                            className="mx-auto"
-                        />
-                    </Row>
+            <Header />
 
-                    <h2 className="text-center mb-4">Register</h2>
-                    {error && <Alert variant="danger">{error}</Alert>}
+            <Container className="d-flex align-items-center justify-content-center">
+                <div className="w-100" style={{ maxWidth: "400px" }}>
+                    <Card>
+                        <Card.Body>
+                            <Row className="justify-content-center">
+                                <Image
+                                    src={logo}
+                                    height={100}
+                                    width={150}
+                                    className="mx-auto"
+                                />
+                            </Row>
 
-                    <Form onSubmit={registerUser}>
-                        <Form.Group id="first_name">
-                            <Form.Label>First Name</Form.Label>
-                            <Form.Control
-                                type="text"
-                                ref={firstNameRef}
-                                required
-                            />
-                        </Form.Group>
+                            <h2 className="text-center mb-4">Register</h2>
+                            {error && <Alert variant="danger">{error}</Alert>}
 
-                        <Form.Group id="last_name">
-                            <Form.Label>Last Name</Form.Label>
-                            <Form.Control
-                                type="text"
-                                ref={lastNameRef}
-                                required
-                            />
-                        </Form.Group>
+                            <Form onSubmit={registerUser}>
+                                <Form.Group id="first_name">
+                                    <Form.Label>First Name</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        ref={firstNameRef}
+                                        required
+                                    />
+                                </Form.Group>
 
-                        <Form.Group id="email">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control
-                                type="email"
-                                ref={emailRef}
-                                required
-                            />
-                        </Form.Group>
+                                <Form.Group id="last_name">
+                                    <Form.Label>Last Name</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        ref={lastNameRef}
+                                        required
+                                    />
+                                </Form.Group>
 
-                        <Form.Group id="first_name">
-                            <Form.Label>Role</Form.Label>
+                                <Form.Group id="email">
+                                    <Form.Label>Email</Form.Label>
+                                    <Form.Control
+                                        type="email"
+                                        ref={emailRef}
+                                        required
+                                    />
+                                </Form.Group>
 
-                            <Form.Control as="select" ref={roleRef} required>
-                                <option value="student">Student</option>
-                                <option value="teacher">Teacher</option>
-                            </Form.Control>
-                        </Form.Group>
+                                <Form.Group id="first_name">
+                                    <Form.Label>Role</Form.Label>
 
-                        <Form.Group id="password">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control
-                                type="password"
-                                ref={passwordRef}
-                                required
-                            />
-                        </Form.Group>
+                                    <Form.Control
+                                        as="select"
+                                        ref={roleRef}
+                                        required
+                                    >
+                                        <option value="student">Student</option>
+                                        <option value="teacher">Teacher</option>
+                                    </Form.Control>
+                                </Form.Group>
 
-                        <Form.Group id="password-confirm">
-                            <Form.Label>Password Confirmation</Form.Label>
-                            <Form.Control
-                                type="password"
-                                ref={passwordConfirmRef}
-                                required
-                            />
-                        </Form.Group>
+                                <Form.Group id="password">
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control
+                                        type="password"
+                                        ref={passwordRef}
+                                        required
+                                    />
+                                </Form.Group>
 
-                        <Button
-                            disabled={loading}
-                            className="w-100"
-                            type="submit"
-                        >
-                            Register
-                        </Button>
-                    </Form>
-                </Card.Body>
-            </Card>
-            <div className="w-100 text-center mt-2">
-                Already have an account? <Link to="/login">Log In</Link>
-            </div>
+                                <Form.Group id="password-confirm">
+                                    <Form.Label>
+                                        Password Confirmation
+                                    </Form.Label>
+                                    <Form.Control
+                                        type="password"
+                                        ref={passwordConfirmRef}
+                                        required
+                                    />
+                                </Form.Group>
+
+                                <Button
+                                    disabled={loading}
+                                    className="w-100"
+                                    type="submit"
+                                >
+                                    Register
+                                </Button>
+                            </Form>
+                        </Card.Body>
+                    </Card>
+                    <div className="w-100 text-center mt-2">
+                        Already have an account? <Link to="/login">Log In</Link>
+                    </div>
+                </div>
+            </Container>
         </>
     );
 }
