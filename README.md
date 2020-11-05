@@ -52,8 +52,9 @@ To run the project locally, you need to have the following:
 
 ## Styling
 
--   This project uses **react-bootstrap** package
+-   This project uses **react-bootstrap** package \*\*\*\*
 -   ClassRoom component uses custom styling defined in `/src/css/ClassRoom.css`
+-   NotFound component uses custom styling defined in `/src/css/NotFound.css`
 
 ---
 
@@ -74,10 +75,12 @@ To run the project locally, you need to have the following:
 ### Dashboard
 
 -   Renders the dashboard page
+-   Components used inside Dashboard:
+    -   GenerateClass - only for teachers
 
 ### Header
 
--   Renders the navbar. Used in components - Dashboard, ClassRoom and Report
+-   Renders the navbar. Used in all the pages
 
 ### ClassRoom
 
@@ -90,15 +93,28 @@ To run the project locally, you need to have the following:
 ### Report
 
 -   Shows the report of all the classes with user logs
+-   List of components used inside Report:
+    -   ClassLog
 
 ### ClassLog
 
 -   Shows the log of a class, like start date, end date and current status
+-   List of components used inside ClassLog:
+    -   ClassUserLog
 
 ### ClassUserLog
 
 -   Shows the logs of all the users of the class in which it is rendered.
 -   Logs include - in, out, user's name and time
+
+### GenerateClass
+
+-   Responsible for generating a class link as per teacher's custom input
+-   Also gives an option to generate a random class name
+
+### NotFound
+
+-   Shows a simple 404 page not found
 
 ---
 
