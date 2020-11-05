@@ -32,6 +32,7 @@ function App() {
                         path="/report"
                         component={Report}
                     ></PrivateRoute>
+
                     <Route exact path="/" component={Home} />
 
                     <Route exact path="/register" component={Register} />

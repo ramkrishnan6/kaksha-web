@@ -48,7 +48,6 @@ function Report() {
                                 eventKey="0"
                             >
                                 {class1.number}
-                                <Card.Header></Card.Header>
                                 <Accordion.Collapse eventKey="0">
                                     <Card.Body>
                                         <ClassLog key={i} classLogs={class1} />
