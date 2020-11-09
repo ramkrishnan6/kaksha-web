@@ -81,6 +81,7 @@ const Room = ({ match }) => {
                 token: localStorage.getItem("auth-token"),
                 roomId: roomId,
             },
+            transports: ["websocket"],
         });
 
         setSocketConnection(socket);
